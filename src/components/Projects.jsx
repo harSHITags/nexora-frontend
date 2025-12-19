@@ -9,7 +9,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const res = await API.get("/projects");
-        setProjects(res.data);
+        setProjects(res.data.data || []);
       } catch (error) {
         console.error("Error fetching projects", error);
       }
@@ -28,9 +28,16 @@ const Projects = () => {
 
       {/* PROJECT CARDS */}
       <div className="grid md:grid-cols-4 gap-8">
-        {projects.map((project) => (
-          <ProjectCard key={project._id} project={project} />
-        ))}
+      
+     {Array.isArray(projects) && projects.length > 0 ? (
+  projects.map((project) => (
+    <ProjectCard key={project._id} project={project} />
+  ))
+) : (
+  <p className="text-center text-gray-500 col-span-full">
+    No projects found
+  </p>
+)}
       </div>
     </section>
   );
