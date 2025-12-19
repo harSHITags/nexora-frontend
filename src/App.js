@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+
+// Admin imports
+import AdminLayout from "./admin/AdminLayout";
+import Dashboard from "./admin/Dashboard";
+import AdminProjects from "./admin/Projects";
+import AdminClients from "./admin/Clients";
+import AdminContacts from "./admin/Contacts";
+import AdminSubscribers from "./admin/Subscribers";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Landing Page */}
+        <Route path="/" element={<Home />} />
+
+        {/* Admin Panel */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="projects" element={<AdminProjects />} />
+          <Route path="clients" element={<AdminClients />} />
+          <Route path="contacts" element={<AdminContacts />} />
+          <Route path="subscribers" element={<AdminSubscribers />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
