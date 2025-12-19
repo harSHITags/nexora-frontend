@@ -9,7 +9,7 @@ const Clients = () => {
     const fetchClients = async () => {
       try {
         const res = await API.get("/clients");
-        setClients(res.data);
+        setClients(res.data.data || []);
       } catch (error) {
         console.error("Error fetching clients", error);
       }
@@ -31,9 +31,15 @@ const Clients = () => {
         </p>
       ) : (
         <div className="grid md:grid-cols-4 gap-8">
-          {clients.map((client) => (
-            <ClientCard key={client._id} client={client} />
-          ))}
+         {Array.isArray(clients) && clients.length > 0 ? (
+  clients.map((client) => (
+    <ClientCard key={client._id} client={client} />
+  ))
+) : (
+  <p className="text-center text-gray-500 col-span-full">
+    No clients found
+  </p>
+)}
         </div>
       )}
     </section>
