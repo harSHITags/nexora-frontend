@@ -11,7 +11,7 @@ const Clients = () => {
   // Fetch clients
   const fetchClients = async () => {
     const res = await API.get("/clients");
-    setClients(res.data);
+    setClients(res.data.data || []);
   };
 
   useEffect(() => {

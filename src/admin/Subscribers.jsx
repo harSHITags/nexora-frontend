@@ -9,7 +9,7 @@ const Subscribers = () => {
     const fetchSubscribers = async () => {
       try {
         const res = await API.get("/subscribers");
-        setSubscribers(res.data);
+        setSubscribers(res.data.data || []);
       } catch (error) {
         console.error("Error fetching subscribers", error);
       } finally {
